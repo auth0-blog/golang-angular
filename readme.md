@@ -4,4 +4,4 @@ Application repo accompanying this Auth0 blog series. In this series, you will l
 
 [Part 1 - The Backend - Developing and Securing Golang APIs](https://auth0.com/blog/developing-golang-and-angular-apps-part-1-backend-api/)
 
-[Part 2 - The Frontend - Developing and Securing Angular Apps](https://auth0.com/blog/developing-golang-and-angular-apps-part-2-angular-front-end/)
+[Part 2 - The Front-end - Developing and Securing Angular Apps](https://auth0.com/blog/developing-golang-and-angular-apps-part-2-angular-front-end/)

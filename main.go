@@ -7,11 +7,10 @@ import (
 	"path"
 	"path/filepath"
 
+	"github.com/Pungyeon/golang-angular/handlers"
 	"github.com/auth0-community/go-auth0"
 	"github.com/gin-gonic/gin"
 	jose "gopkg.in/square/go-jose.v2"
-
-	"github.com/Pungyeon/golang-auth0-example/handlers"
 )
 
 var (
@@ -22,6 +21,7 @@ var (
 func main() {
 	setAuth0Variables()
 	r := gin.Default()
+	r.Use(CORSMiddleware())
 
 	// This will ensure that the angular files are served correctly
 	r.NoRoute(func(c *gin.Context) {
@@ -53,7 +53,7 @@ func setAuth0Variables() {
 }
 
 // ValidateRequest will verify that a token received from an http request
-// is valid and signy by authority
+// is valid and signyed by Auth0
 func authRequired() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
@@ -76,4 +76,19 @@ func authRequired() gin.HandlerFunc {
 func terminateWithError(statusCode int, message string, c *gin.Context) {
 	c.JSON(statusCode, gin.H{"error": message})
 	c.Abort()
+}
+
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "DELETE, GET, OPTIONS, POST, PUT")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
 }

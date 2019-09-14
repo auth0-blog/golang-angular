@@ -1,0 +1,56 @@
+<h2>Todos</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Complete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let todo of activeTodos">
+    <td>{{todo.id}}</td>
+    <td>{{todo.message}}</td>
+    <td>
+      <button *ngIf="!todo.complete" class="btn btn-secondary" (click)="completeTodo(todo)">
+        <i class="fa fa-check"></i>
+      </button>
+      <button *ngIf="todo.complete" class="btn btn-success" disabled>
+        <i class="fa fa-check"></i>
+      </button>
+      <button class="btn btn-danger" (click)="deleteTodo(todo)">
+        <i class="fa fa-trash"></i>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<h3>Completed</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Complete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let todo of completedTodos">
+    <td>{{todo.id}}</td>
+    <td>{{todo.message}}</td>
+    <td>
+      <button *ngIf="!todo.complete" class="btn btn-secondary" (click)="completeTodo(todo)">
+        <i class="fa fa-check"></i>
+      </button>
+      <button *ngIf="todo.complete" class="btn btn-success" disabled>
+        <i class="fa fa-check"></i>
+      </button>
+      <button class="btn btn-danger" (click)="deleteTodo(todo)">
+        <i class="fa fa-trash"></i>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<input placeholder="description..." [(ngModel)]="todoMessage">
+<button class="btn btn-primary" (click)="addTodo()">Add</button>
